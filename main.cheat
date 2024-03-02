@@ -16,5 +16,8 @@ python -c "import site; [print(loc) for loc in site.getsitepackages()]" | fzf --
 # show size of current pip global cache
 du -sh $(python -m pip cache dir)
 
+# show current files in directory sorted from most recently accessed to least recently accessed
+stat -c "%x %n" * | sort -r
+
 # run a script hosted somewhere (non-sudo)
 curl -s <file_url> | bash
