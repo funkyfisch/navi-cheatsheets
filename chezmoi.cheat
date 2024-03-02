@@ -1,0 +1,5 @@
+% chezmoi, config
+
+# show diff per config file
+
+cd ~ && chezmoi list | fzf --preview 'chezmoi diff {}'
