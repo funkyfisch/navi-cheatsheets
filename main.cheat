@@ -1,0 +1,20 @@
+% bash, sysadmin
+
+# measure .bashrc sourcing time
+start=$(date +%s%N);source ~/.bashrc;end=$(date +%s%N);echo "Sourcing .bashrc took $(( (end - start) / 1000000 )) milliseconds."
+
+# show size of apt installed packages
+dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -h | awk '{print $1/1024 " MB\t" $2}' | fzf
+
+# show size of current npm global install
+du -sh $(npm root -g)/* | sort -h
+
+# show size of current pip global install
+# https://github.com/junegunn/fzf/issues/2294#issuecomment-749647993
+python -c "import site; [print(loc) for loc in site.getsitepackages()]" | fzf --preview "du {} | sort -nr " | xargs du | sort -nr | awk '{print $1/1024 " MB\t" $2}' | fzf --sync
+
+# show size of current pip global cache
+du -sh $(python -m pip cache dir)
+
+# run a script hosted somewhere (non-sudo)
+curl -s <file_url> | bash
