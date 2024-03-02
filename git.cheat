@@ -3,3 +3,6 @@
 # Navigate to root directory of git repository
 
 cd $(git rev-parse --show-toplevel)
+
+# Recursively fix author for all commits up to the chosen in current branch
+git rebase -r <commit> --exec 'git commit --amend --no-edit --reset-author'
