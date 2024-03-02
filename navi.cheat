@@ -1,0 +1,4 @@
+% navi
+
+# open navi cheats folder with code
+code $(navi info cheats-path)

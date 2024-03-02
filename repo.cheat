@@ -1,0 +1,14 @@
+% repo, manifest
+
+# Get revision for a specific project in a specific manifest revision
+
+cd .repo/manifests && git checkout <manifest_revision> && cd - \
+  && repo manifest | grep <project_name>
+
+# Navigate to specific project and checkout a revision
+
+cd <project_path> && git checkout <project_revision>
+
+# Find out which manifest was selected for repo init
+
+tail -n 3 .repo/manifest.xml

@@ -1,0 +1,4 @@
+% diff
+
+# colored diff output between files
+diff -u <file1> <file2> | colordiff

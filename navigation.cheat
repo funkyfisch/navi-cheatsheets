@@ -1,0 +1,5 @@
+% cd, find, fzf
+
+# Navigate to fuzzy searched directory
+
+cd $(fdfind --type directory plugins | fzf)

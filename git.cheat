@@ -1,0 +1,5 @@
+% git
+
+# Navigate to root directory of git repository
+
+cd $(git rev-parse --show-toplevel)

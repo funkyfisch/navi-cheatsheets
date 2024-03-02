@@ -1,0 +1,4 @@
+% kubernetes, k8s
+
+# get streaming logs from a pod interactively
+kubectl get pods --no-headers | fzf | xargs -n 1 bash -c 'kubectl logs -f $0'
