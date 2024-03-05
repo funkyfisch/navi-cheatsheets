@@ -12,3 +12,11 @@ cd <project_path> && git checkout <project_revision>
 # Find out which manifest was selected for repo init
 
 tail -n 3 .repo/manifest.xml
+
+# Navigate to project path given a project name by grepping manifest
+
+cd $(cd $(repo --show-toplevel) && repo manifest | grep -e 'project name=".*'<project_name>'.*"' | sed -E 's/.*path="([^"]+)".*/\1/')
+
+# Navigate to project from anywhere in repo using fzf
+
+toplevel=$(repo --show-toplevel) cd $toplevel/$(repo list --path-only | fzf --preview "ls $toplevel/{}")
