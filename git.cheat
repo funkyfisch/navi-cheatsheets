@@ -6,3 +6,6 @@ cd $(git rev-parse --show-toplevel)
 
 # Recursively fix author for all commits up to the chosen in current branch
 git rebase -r <commit> --exec 'git commit --amend --no-edit --reset-author'
+
+# common git review without .gitreview file
+git review -r origin master
