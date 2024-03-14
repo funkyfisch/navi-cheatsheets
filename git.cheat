@@ -9,3 +9,6 @@ git rebase -r <commit> --exec 'git commit --amend --no-edit --reset-author'
 
 # common git review without .gitreview file
 git review -r origin master
+
+# commit without running prepare-commit-msg hook
+gitroot="$(git rev-parse --show-toplevel)" mv "$gitroot/.git/hooks/prepare-commit-msg" "$gitroot/.git/hooks/prepare-commit-msg.bak" ; git commit ; mv "$gitroot/.git/hooks/prepare-commit-msg.bak" "$gitroot/.git/hooks/prepare-commit-msg"
