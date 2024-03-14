@@ -1,8 +1,11 @@
 % repo, manifest
 
+# Go to top level of repo
+cd $(repo --show-top-level)
+
 # Get revision for a specific project in a specific manifest revision
 
-cd .repo/manifests && git checkout <manifest_revision> && cd - \
+toplevel=$(repo --show-toplevel) cd "$toplevel/.repo/manifests" && git checkout <manifest_revision> && cd - \
   && repo manifest | grep <project_name>
 
 # Navigate to specific project and checkout a revision
@@ -11,7 +14,7 @@ cd <project_path> && git checkout <project_revision>
 
 # Find out which manifest was selected for repo init
 
-tail -n 3 .repo/manifest.xml
+toplevel=$(repo --show-toplevel) tail -n 3 "$toplevel/.repo/manifest.xml"
 
 # Navigate to project path given a project name by grepping manifest
 
