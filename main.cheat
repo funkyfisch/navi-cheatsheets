@@ -21,3 +21,9 @@ stat -c "%x %n" * | sort -r
 
 # run a script hosted somewhere (non-sudo)
 curl -s <file_url> | bash
+
+# preview installed global npm packages
+npm list -p -g | fzf --preview 'batcat {}/package.json'
+
+# pretty print installed global npm packages
+npm list -p -g | fzf | xargs npm view
