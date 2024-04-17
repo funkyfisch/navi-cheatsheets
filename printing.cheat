@@ -1,0 +1,5 @@
+% printing, logging
+
+# tail the output of multiple log files together
+
+parallel --tagstring "{}:" --line-buffer tail -f {} ::: ~/.local/log/*
