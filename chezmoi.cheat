@@ -3,3 +3,7 @@
 # show diff per config file
 
 cd ~ && chezmoi list | fzf --preview 'chezmoi diff {}'
+
+# fuzzy edit a config file managed by chezmoi and apply changes on close
+
+OLD_EDITOR="$EDITOR" && EDITOR="code --wait" && file=$(chezmoi list --path-style=absolute | fzf) && chezmoi edit "$file" && chezmoi apply "$file" && EDITOR=$OLD_EDITOR

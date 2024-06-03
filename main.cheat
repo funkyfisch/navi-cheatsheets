@@ -27,3 +27,6 @@ npm list -p -g | fzf --preview 'batcat {}/package.json'
 
 # pretty print installed global npm packages
 npm list -p -g | fzf | xargs npm view
+
+# fuzzy search manual and display context of match
+man <command> | fzf --multi --preview='man <command> | grep --after-context 20 -- {}'

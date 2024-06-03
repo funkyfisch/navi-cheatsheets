@@ -12,3 +12,6 @@ git review -r origin master
 
 # commit without running prepare-commit-msg hook
 gitroot="$(git rev-parse --show-toplevel)" && mv "$gitroot/.git/hooks/prepare-commit-msg" "$gitroot/.git/hooks/prepare-commit-msg.bak" ; git commit ; mv "$gitroot/.git/hooks/prepare-commit-msg.bak" "$gitroot/.git/hooks/prepare-commit-msg"
+
+# delete any local branches whose remote has been deleted
+git remote prune origin && git branch -vv | grep "origin/.*: gone]" | awk '{print $1}' | xargs git branch -D

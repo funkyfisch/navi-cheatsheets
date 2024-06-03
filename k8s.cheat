@@ -1,4 +1,19 @@
-% kubernetes, k8s
+% kubernetes, k8s, docker
 
 # get streaming logs from a pod interactively
 kubectl get pods --no-headers | fzf | xargs -n 1 bash -c 'kubectl logs -f $0'
+
+# list all containers from all pods
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{.metadata.namespace}{"\t"}{.metadata.name}{"\n"}{range .spec.containers[*]}{.name}{"\n"}{end}{end}' | sort | uniq
+
+# enter a container in a pod interactively with fzf
+kubectl get pods --no-headers | fzf | xargs -n 1 bash -c 'kubectl exec -it $0 -- /bin/bash'
+
+# enter a local docker container interactively with fzf
+cid=$(docker ps --format '{{.ID}}  {{.Image}}  {{.Status}}' | fzf --preview 'docker inspect $(echo {} | cut -d " " -f 1)' | cut -d " " -f 1); docker exec -ti $cid bash
+
+# enter a remote container in current namespace interactively with fzf
+pod=$(kubectl get pods --no-headers | fzf | cut -d " " -f 1); container=$(kubectl get pods $pod -o jsonpath='{.spec.containers[*].name}'   | tr ' ' '\n'   | fzf --sync --preview "kubectl get pod $pod -o json | jq -c '.spec.containers[] | select( .name | contains(\"{}\"))'| jq"); kubectl exec -it $pod -c $container -- /bin/bash
+
+# get list of events for pods
+kubectl get events --sort-by='.metadata.creationTimestamp'
